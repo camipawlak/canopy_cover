@@ -39,13 +39,13 @@ python 5_test.py --text_dir "PATH/splits" --log_dir "PATH/logs" --crop_size 448 
 
 ## Step 3: Fine-tune on hand-annotated data
 
-python 7_make_hand_annotated_splits.py --root-dir "PATH/hand_ann_training_data_by_cz" --train-ratio 0.8 --test-ratio 0.1 --val-ratio 0.1
+python 6_make_hand_annotated_splits.py --root-dir "PATH/hand_ann_training_data_by_cz" --train-ratio 0.8 --test-ratio 0.1 --val-ratio 0.1
 
-python 8_finetune_model.py --input_dir "PATH/hand_ann_training_data_by_cz/" --climate_zone "statewide_finetune_2" --log_dir "PATH/logs" --crop_size 256 --batch_size 16 --epochs 150 --lr 0.0001 --ngpus 1
-#### Climate_zone can also be set to a specific zone, e.g. "southern_california_coast", "inland_empire", etc.
+python 7_finetune_model.py --input_dir "PATH/hand_ann_training_data_by_cz/" --climate_zone "statewide_finetune_2" --log_dir "PATH/logs" --crop_size 256 --batch_size 16 --epochs 150 --lr 0.0001 --ngpus 1
+# climate_zone can also be set to a specific zone, e.g. "southern_california_coast", "inland_empire", etc.
 
 ## Step 4: Run inference
 
-python 9_inference.py --text_file "PATH/naip_tiles.txt" --output_raster "PATH/output.tif" --model_checkpoint "checkpoints/canopy_statewide_finetuned.ckpt" --tile_size 2048 --overlap 32 --year 2020
+python 8_inference.py --text_file "PATH/naip_tiles.txt" --output_raster "PATH/output.tif" --model_checkpoint "checkpoints/canopy_statewide_finetuned.ckpt" --tile_size 2048 --overlap 32 --year 2020
 
-NAIP imagery is accessed via the USDA requester-pays S3 bucket (s3://naip-analytic/). You will need AWS credentials and AWS_REQUEST_PAYER=requester set in your environment. VRT files for each UTM zone and year can be built using make_aws_vrts.py.
+NAIP imagery is accessed via the USDA requester-p
