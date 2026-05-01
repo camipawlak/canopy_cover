@@ -15,9 +15,9 @@ Climate zone data comes from: McPherson, E. G., Xiao, Q., Van Doorn, N. S., De G
 To generate training data using LiDAR, please see the scripts in the lidar_processing directory. The scripts can be used in this order:
 
 1. `get_laz.py`
-            python get_laz.py --city "CITYNAME" --out "OUTPATH"
+    python get_laz.py --city "CITYNAME" --out "OUTPATH"
    
-           get_laz.py requires a 3dep.gpkg index file of 3DEP LiDAR collections. Build this from https://usgs.entwine.io/ and pass the path via --threedep_gpkg.
+   get_laz.py requires a 3dep.gpkg index file of 3DEP LiDAR collections. Build this from https://usgs.entwine.io/ and pass the path via --threedep_gpkg.
 3. `make_chm.py`
             python make_chm.py "PATH/points.laz" --output_srs "EPSG:26910" --delaunay
 4. `merge_chms.py`
