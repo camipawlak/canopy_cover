@@ -1,6 +1,8 @@
 # California Canopy Cover Maps
 This repository holds the code to use NAIP imagery to create canopy cover maps in California.
 
+If used, please cite the publication: [ PREPRINT LINK TO COME - CHECK BACK SOON ]
+
 ## Overview
 Training was done in two steps. The first model is trained off of LiDAR-generated canopy models. Then, we fine-tuned that model using hand-annotated data from each of California's climate zones.
 
