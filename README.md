@@ -42,7 +42,7 @@ python 5_test.py --text_dir "PATH/splits" --log_dir "PATH/logs" --crop_size 448 
 python 6_make_hand_annotated_splits.py --root-dir "PATH/hand_ann_training_data_by_cz" --train-ratio 0.8 --test-ratio 0.1 --val-ratio 0.1
 
 python 7_finetune_model.py --input_dir "PATH/hand_ann_training_data_by_cz/" --climate_zone "statewide_finetune_2" --log_dir "PATH/logs" --crop_size 256 --batch_size 16 --epochs 150 --lr 0.0001 --ngpus 1
-<!-- climate_zone options: southern_california_coast, inland_empire, northern_california_coast, inland_valleys, interior_west, southwest_desert, statewide_finetune_2 -->
+# climate_zone can also be a specific zone e.g. "southern_california_coast", "inland_empire", etc.
 
 ## Step 4: Run inference
 
