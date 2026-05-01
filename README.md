@@ -12,26 +12,29 @@ Climate zone data comes from: McPherson, E. G., Xiao, Q., Van Doorn, N. S., De G
 
 
 ## Step 1: Generate LiDAR training data
-To generate training data using LiDAR, please see the scripts in the lidar_processing repository folder Dr. Jonathan Ventura. The scripts can be used in this order:
+To generate training data using LiDAR, please see the scripts in the lidar_processing directory. The scripts can be used in this order:
 
 1. `get_laz.py`
-        python get_laz.py --city "CITYNAME" --out "OUTPATH"
+            python get_laz.py --city "CITYNAME" --out "OUTPATH"
+   
            get_laz.py requires a 3dep.gpkg index file of 3DEP LiDAR collections. Build this from https://usgs.entwine.io/ and pass the path via --threedep_gpkg.
 3. `make_chm.py`
-        python make_chm.py "PATH/points.laz" --output_srs "EPSG:26910" --delaunay
+            python make_chm.py "PATH/points.laz" --output_srs "EPSG:26910" --delaunay
 4. `merge_chms.py`
-        python merge_chms.py "/PATH/CITYNAME/points.laz"
+            python merge_chms.py "/PATH/CITYNAME/points.laz"
 5. `make_canopy.py`
-        python make_canopy.py "NAIP DATA VRT PATH" "CHM TIF PATH" "CANOPY TIF PATH" --ndvithresh 0.05
+            python make_canopy.py "NAIP DATA VRT PATH" "CHM TIF PATH" "CANOPY TIF PATH" --ndvithresh 0.05
 
 ## Step 2: Train the model
 
-python 1_creating_chips.py --shapefile-path "PATH" --csv-path "PATH/city_names_folder_utm_year.csv" --input-vrt-folder "PATH" --input-canopy-folder "PATH TO LIDAR CHMS" --output-chips-folder "PATH/training_chips" --climate-zone-shapefile "data/climate_zone_CA/climate_zone_3.shp"
+1. '1_creating_chips.py'
+            python 1_creating_chips.py --shapefile-path "PATH" --csv-path "PATH/city_names_folder_utm_year.csv" --input-vrt-folder "PATH" --input-canopy-folder "PATH TO LIDAR CHMS" --output-chips-folder "PATH/training_chips" --climate-zone-shapefile "data/climate_zone_CA/climate_zone_3.shp"
 
 ##### Build NAIP VRTs before normalizing (requires AWS credentials, see data/README.md)
-python make_aws_vrts.py --output_dir "PATH/naip_vrts" --shapefile_dir "PATH/naip_shapefiles"
+    python make_aws_vrts.py --output_dir "PATH/naip_vrts" --shapefile_dir "PATH/naip_shapefiles"
 
-python 2_normalize_chips_aws.py "PATH/training_chips" --vrt_dir "PATH/naip_vrts" --overwrite
+2. '2_normalize_chips_aws.py'
+            python 2_normalize_chips_aws.py "PATH/training_chips" --vrt_dir "PATH/naip_vrts" --overwrite
 
 python 3_make_splits.py --root-dir "PATH/training_chips" --out_dir "PATH/splits" --train-ratio 0.8 --test-ratio 0.1 --val-ratio 0.1
 
